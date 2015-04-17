@@ -1,0 +1,87 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="UofMario.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title><%: Page.Title %> - U of Mario</title>
+    <link href="~/Content/Site.css" rel="stylesheet" /> 
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <asp:PlaceHolder runat="server">        
+        <script src="<%: ResolveUrl("~/Scripts/modernizr-2.6.2.js") %>"></script>
+    </asp:PlaceHolder>
+    <meta name="viewport" content="width=device-width" />
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+</head>
+<body>
+    <form runat="server">
+    <asp:ScriptManager runat="server">
+        <Scripts>
+            <asp:ScriptReference Name="jquery" />
+            <asp:ScriptReference Name="jquery.ui.combined" />
+        </Scripts>
+    </asp:ScriptManager>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title"><a href="/Default.aspx">University Of Mario</a></p>
+            </div>
+            <div class="float-right">
+                <section id="login">
+                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul>
+                                <li><a id="registerLink" runat="server" href="~/Account/Register">Register</a></li>
+                                <li><a id="loginLink" runat="server" href="~/Account/Login">Log in</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <p>
+                                Hello, <a runat="server" class="username" href="~/Account/Manage" title="Manage your account">
+                                    <asp:LoginName runat="server" CssClass="username" />
+                                </a>!
+                                <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
+                            </p>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+                </section>
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="true" IncludeStyleBlock="false" Orientation="Horizontal">
+                    <Items>
+                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"></asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"></asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Student.aspx" Text="Students">
+                            <asp:MenuItem NavigateUrl="~/StudentAdd.aspx" Text="Add Student"></asp:MenuItem>
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Courses1.aspx" Text="Courses">
+                            <asp:MenuItem NavigateUrl="~/CoursesAdd.aspx" Text="Add Courses"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/InstructorsManagement.aspx" Text="Manage Courses"></asp:MenuItem>
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Instructors.aspx" Text="Instructors">
+                            <asp:MenuItem NavigateUrl="~/InstructorsCourses.aspx" Text="Course Assignments"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/OfficeAssignments.aspx" Text="Office Assignments"></asp:MenuItem>
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Departments.aspx" Text="Departments">
+                            <asp:MenuItem NavigateUrl="~/DepartmentsAdd.aspx" Text="Add Departments" />
+                        </asp:MenuItem>
+
+                    </Items>
+                </asp:Menu>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+        <section class="content-wrapper main-content clear-fix">
+            <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+            </div>
+        </div>
+    </footer>
+    </form>
+</body>
+</html>
